@@ -39,14 +39,22 @@ function ChatRoomView({ messages }) {
                             exitActive: 'exitActive',
                         }}
                     >
-                        <div className="chatRoomView__message">
-                        <p className="typing-animation truncate-text">
-                            {message}
-                        </p>
-                        <div className={`typing-animation ${typing ? 'typing' : ''}`}>
-                            <span className="typing-animation__cursor"></span>
-                        </div>
-                        </div>
+                        {message.fromUser === true ? (
+                            <div className="chatRoomView__message">
+                                <p className="typing-animation truncate-text">
+                                    {message.text}
+                                </p>
+                                <div className={`typing-animation ${typing ? 'typing' : ''}`}>
+                                    <span className="typing-animation__cursor"></span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="chatRoomView__message answer">
+                                <p className="typing-animation truncate-text">
+                                    {message.text}
+                                </p>
+                            </div>
+                        )}
                     </CSSTransition>
                 ))}
             </TransitionGroup>

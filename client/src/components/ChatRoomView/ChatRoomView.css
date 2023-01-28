@@ -167,3 +167,9 @@
     /* text-overflow: ellipsis; */
     white-space: nowrap;
 }
+
+.answer {
+    float: right;
+    text-align: right;
+    justify-content: flex-end;
+}

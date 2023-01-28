@@ -13,7 +13,7 @@ function ChatInputBar(
             return
         }
         // console.log(` >>> '${input}'`);
-        setMessages([...messages, input]);
+        setMessages([...messages, { text: input, fromUser: true }]);
         setInputData('');
     }
 

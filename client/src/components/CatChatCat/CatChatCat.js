@@ -38,7 +38,7 @@ function CatChatCat(
     useBlinkCycle(cat, setCat);
 
     const handleNewMessage = async (message) => {
-        if (!message) {
+        if (!message || !message.fromUser) {
             return
         }
         const sentiment = await getSentiment(message); 
@@ -61,8 +61,13 @@ function CatChatCat(
         console.log(`[${detectedEmotion}] - {${sentiment}} >>> ${message}`);
 
         // get answer to user input message from dialogGPT api
-        const answer = await getAnswer(message);
+        const answer = await getAnswer(message.text);
         console.log({ answer });
+        // setMessages( prevMessages =>  [...prevMessages, [ ...prevMessages, { text: answer, fromUser: false } ]]);
+        // setMessages([...messages, { text: answer, fromUser: false }]);
+        setMessages([...messages, { text: answer, fromUser: false }]);
+
+        console.log({ messages })
     }
 
     async function getAnswer(message) {
@@ -74,7 +79,7 @@ function CatChatCat(
     const getSentiment = async (message) => {
         // const serverUrl = 'http://localhost:3001';
         const serverUrl = 'http://192.168.178.151:3001';
-        const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message);
+        const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message.text);
         const sentiment = sentimentData?.sentiment;
         return sentiment;
     }
