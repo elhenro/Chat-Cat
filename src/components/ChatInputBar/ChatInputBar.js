@@ -17,6 +17,7 @@ function ChatInputBar(
     return (
         <div className="chatInputBar">
             <input
+                autoFocus
                 className="chatInputBar__input"
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
                 value={inputData}

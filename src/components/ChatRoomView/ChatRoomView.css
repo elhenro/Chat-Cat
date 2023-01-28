@@ -1,8 +1,11 @@
 .chatRoomView {
     display: flex;
+    z-index: 2;
     flex-direction: column;
     height: 100%;
     width: 82%;
+    min-height: 60vh;
+    justify-content: flex-end;
 }
 
 /* chat room styles */
@@ -72,6 +75,10 @@
     color: #9e9e9e;
 }
 
+.chatRoomView__message p {
+    text-align: left;
+}
+
 .personA {
     text-align: left;
 };
@@ -82,24 +89,6 @@
 };
 
 /* message fade in animation */
-/* .fade-enter {
-    opacity: 0;
-}
-
-.fade-enter-active {
-    opacity: 1;
-    transition: opacity 500ms;
-}
-
-.fade-exit {
-    opacity: 1;
-}
-
-.fade-exit-active {
-    opacity: 0;
-    transition: opacity 500ms;
-} */
-
 .fade-enter {
     opacity: 0;
   }
@@ -135,3 +124,46 @@
       opacity: 0;
       transition: opacity 500ms;
   }
+
+  /* message typing animation */
+  .typing-animation {
+    width: 100%;
+    position: relative;
+}
+
+.typing-animation__cursor {
+    width: 2px;
+    height: 20px;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.typing {
+    animation: typing 2000ms steps(60, end);
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+
+.truncate-text {
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+    white-space: nowrap;
+}
