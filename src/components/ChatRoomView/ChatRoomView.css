@@ -80,3 +80,58 @@
     text-align: right;
     float: right;
 };
+
+/* message fade in animation */
+/* .fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms;
+} */
+
+.fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+      opacity: 1;
+      transition: opacity 500ms;
+  }
+
+  .fade-exit {
+      opacity: 1;
+  }
+
+  .fade-exit-active {
+      opacity: 0;
+      transition: opacity 500ms;
+  }
+
+
+  .enter {
+      opacity: 0;
+  }
+
+  .enter-active {
+      opacity: 1;
+      transition: opacity 200ms;
+  }
+
+  .exit {
+      opacity: 1;
+  }
+
+  .exit-active {
+      opacity: 0;
+      transition: opacity 500ms;
+  }

@@ -1,13 +1,29 @@
 // chat room view
 import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ChatRoomView.css';
 
-function ChatRoomView ({ messages }) {
+function ChatRoomView({ messages }) {
     return (
         <div className="chatRoomView">
-            {messages.map((message, index) => (
-                <p key={index} className="chatRoomView__message">{message}</p>
-            ))}
+            <TransitionGroup>
+                {messages.map((message, index) => (
+                    <CSSTransition
+                        key={index}
+                        timeout={500}
+                        classNames={{
+                            enter: 'enter',
+                            enterActive: 'enterActive',
+                            exit: 'exit',
+                            exitActive: 'exitActive',
+                        }}
+                    >
+                        <p className="chatRoomView__message">
+                            {message}
+                        </p>
+                    </CSSTransition>
+                ))}
+            </TransitionGroup>
         </div>
     )
 }

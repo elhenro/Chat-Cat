@@ -5,6 +5,9 @@ function ChatInputBar(
     { inputData, setInputData, setMessages, messages }
 ) {
     const sendMessage = (e) => {
+        if (!inputData.length) {
+            return
+        }
         console.log(` >>> '${inputData}'`);
         setMessages([...messages, inputData]);
         setInputData('');
