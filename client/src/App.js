@@ -1,12 +1,12 @@
 import React, { useState  } from 'react';
 import ChatInputBar from './components/ChatInputBar/ChatInputBar';
 import ChatRoomView from './components/ChatRoomView/ChatRoomView';
-import ChatInputButton from './components/ChatInputButton/ChatInputButton';
+// import ChatInputButton from './components/ChatInputButton/ChatInputButton';
 import CatChatCat from './components/CatChatCat/CatChatCat';
 import './App.css';
 
 function App() {
-  const [inputData, setInputData] = useState('');
+  const [input, setInputData] = useState('');
   const [messages, setMessages] = useState([]);
 
   return (
@@ -20,15 +20,15 @@ function App() {
           setMessages={setMessages}
         />
         <ChatInputBar
-          inputData={inputData}
+          input={input}
           setInputData={setInputData}
           messages={messages}
           setMessages={setMessages}
         />
-        <ChatInputButton
+        {/* <ChatInputButton
           messages={messages}
           setMessages={setMessages}
-        />
+        /> */}
       </header>
 
     </div>

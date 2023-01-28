@@ -2,16 +2,15 @@ import React from 'react';
 import './ChatInputBar.css';
 
 function ChatInputBar(
-    { inputData, setInputData, setMessages, messages }
+    { input, setInputData, setMessages, messages }
 ) {
     const sendMessage = (e) => {
-        if (!inputData.length) {
+        if (!input.length) {
             return
         }
-        console.log(` >>> '${inputData}'`);
-        setMessages([...messages, inputData]);
+        console.log(` >>> '${input}'`);
+        setMessages([...messages, input]);
         setInputData('');
-        console.log({ messages })
     }
 
     return (
@@ -20,7 +19,7 @@ function ChatInputBar(
                 autoFocus
                 className="chatInputBar__input"
                 onKeyDown={e => e.key === 'Enter' && sendMessage()}
-                value={inputData}
+                value={input}
                 onChange={e => setInputData(e.target.value)}
                 placeholder="Type a message"
                 type="text"

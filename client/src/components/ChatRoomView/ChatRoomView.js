@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './ChatRoomView.css';
 
 function handleNewMessage(message) {
-    console.log('handleNewMessage', message);
+    // console.log('handleNewMessage', message);
     // message typing animation
     const chatRoomView = document.querySelector('.chatRoomView');
     const lastMessage = chatRoomView.lastChild;

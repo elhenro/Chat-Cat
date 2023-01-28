@@ -1,9 +1,13 @@
+.chatInputBar {
+    z-index: 2;
+    padding-bottom: 2em;
+}
+
 .chatInputBar__input {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 8px;
     width: 100%;
-    z-index: 1;
 }
 
 input {
