@@ -42,3 +42,14 @@ body::-webkit-scrollbar {
 html, body {
   background-color: #282c34;
 }
+
+/* media query for mobile */
+@media (max-width: 600px) {
+  .catChatCat {
+    max-width: 100%;
+    top: 20%;
+  }
+  .chat-room__messages {
+    height: 100%;
+  }
+}
