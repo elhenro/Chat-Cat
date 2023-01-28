@@ -59,6 +59,16 @@ function CatChatCat(
             });
         }
         console.log(`[${detectedEmotion}] - {${sentiment}} >>> ${message}`);
+
+        // get answer to user input message from dialogGPT api
+        const answer = await getAnswer(message);
+        console.log({ answer });
+    }
+
+    async function getAnswer(message) {
+        const serverUrl = 'http://127.0.0.1:5000/chat';
+        const { data: answerData } = await axios.post(serverUrl, { input: message });
+        return answerData?.response;
     }
 
     const getSentiment = async (message) => {
