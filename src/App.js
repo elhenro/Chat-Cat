@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import ChatInputBar from './components/ChatInputBar/ChatInputBar';
+import ChatRoomView from './components/ChatRoomView/ChatRoomView';
+import React, { useState } from 'react';
 
 function App() {
+  const [inputData, setInputData] = useState('');
+  const [messages, setMessages] = useState([]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <ChatRoomView messages={messages} />
+        <ChatInputBar
+          inputData={inputData}
+          setInputData={setInputData}
+          messages={messages}
+          setMessages={setMessages}
+        />
       </header>
+
     </div>
   );
 }
