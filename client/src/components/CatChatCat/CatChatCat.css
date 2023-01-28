@@ -1,5 +1,5 @@
 .catChatCat {
-    position: fixed;
+    position: absolute;
     max-width: 50%;
     z-index: 1;
     margin-left: 30px;
@@ -11,5 +11,4 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    /* position: relative; */
 }

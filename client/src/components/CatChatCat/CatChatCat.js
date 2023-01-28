@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './CatChatCat.css';
 
@@ -8,12 +9,16 @@ function CatChatCat(
         useEffect(() => {
             function startBlinkCycle() {
                 setTimeout(() => {
+                    // console.log('blink', { cat });
                     if (cat.blink) {
                         return
                     }
-                    setCat({ ...cat, blink: true })
+                    // if (cat.emotion === 'default' || cat.emotion === null) {
+                    setCat( prevCat => ({ ...prevCat, blink: true }))
                     setTimeout(() => {
-                        setCat({ ...cat, blink: false })
+                        // if (cat.emotion === 'default' || cat.emotion === null) {
+                            setCat( prevCat => ({ ...prevCat, blink: false }))
+                        // }
                         if (!cat.blink) {
                             startBlinkCycle()
                         }
@@ -32,17 +37,50 @@ function CatChatCat(
     const [cat, setCat] = useState({ blink: false });
     useBlinkCycle(cat, setCat);
 
-    const handleNewMessage = (message) => {
-        console.log('asd', message)
-        if (message?.includes('happy')) {
-            console.log('yay')
-            setCat({ ...cat, emotion: 'happy' })
-            setTimeout(() => {
-                setCat({ ...cat, emotion: null })
-            }, 3000);
+    const handleNewMessage = async (message) => {
+        if (!message) {
+            return
         }
-        // const sentiment = sentimentAnalysis(message);
-        // console.log({ sentiment })
+        const sentiment = await getSentiment(message); 
+        let detectedEmotion = null;
+        if (sentiment > 0.5) {
+            detectedEmotion = 'happy';
+        } else if (sentiment < 0) {
+            detectedEmotion = 'angry';
+        } //else if (sentiment < -1) {
+            //detectedEmotion = 'sad';
+        //}
+        if (detectedEmotion) {
+            createEmotion({
+                previousEmotion: cat.emotion,
+                emotionType: detectedEmotion,
+                // duration: 1000 + Math.floor(Math.random() * 9000),
+                duration: 5000,
+            });
+        }
+        console.log(`[${detectedEmotion}] - {${sentiment}} >>> ${message}`);
+    }
+
+    const getSentiment = async (message) => {
+        // const serverUrl = 'http://localhost:3001';
+        const serverUrl = 'http://192.168.178.151:3001';
+        const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message);
+        const sentiment = sentimentData?.sentiment;
+        return sentiment;
+    }
+
+    function createEmotion({
+        emotionType,
+        duration,
+        previousEmotion,
+    }) {
+        console.log('set emotion', emotionType, 'for', duration, 'ms')
+        // setCat({ ...cat, emotion: emotionType })
+        setCat(prevCat => ({ ...prevCat, emotion: emotionType }))
+        setTimeout(() => {
+            // setCat({ ...cat, emotion: null })
+            setCat(prevCat => ({ ...prevCat, emotion: null }))
+        }, duration);
     }
 
     useEffect(() => {
@@ -54,10 +92,10 @@ function CatChatCat(
         switch (cat.emotion) {
             case 'happy':
                 return './cat-happy.png';
-            case 'sad':
-                return './cat-sad.png';
             case 'angry':
                 return './cat-angry.png';
+            // case 'sad':
+            //     return './cat-sad.png';
             default:
                 {
                     switch (cat.blink) {

@@ -7,9 +7,9 @@ function ChatInputButton({ messages, setMessages }) {
     const sendMessage = () => {
         const lastMessage = messages[messages.length - 1];
         const answer = getAnwer(lastMessage);
-        console.log(` <<< '${answer}'`);
+        // console.log(` <<< '${answer}'`);
         setMessages([...messages, answer]);
-        console.log({ messages })
+        // console.log({ messages })
     }
 
     function getAnwer(lastMessage) {
