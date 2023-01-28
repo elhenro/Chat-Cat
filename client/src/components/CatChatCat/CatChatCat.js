@@ -43,7 +43,7 @@ function CatChatCat(
         }
         const sentiment = await getSentiment(message); 
         let detectedEmotion = null;
-        if (sentiment > 0.5) {
+        if ( sentiment && sentiment > 0.5) {
             detectedEmotion = 'happy';
         } else if (sentiment < 0) {
             detectedEmotion = 'angry';
@@ -77,11 +77,16 @@ function CatChatCat(
     }
 
     const getSentiment = async (message) => {
-        // const serverUrl = 'http://localhost:3001';
-        const serverUrl = 'http://192.168.178.151:3001';
-        const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message.text);
-        const sentiment = sentimentData?.sentiment;
-        return sentiment;
+        try {
+            // const serverUrl = 'http://localhost:3001';
+            const serverUrl = 'http://192.168.178.151:3001';
+            const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message.text);
+            const sentiment = sentimentData?.sentiment;
+            return sentiment;
+        } catch (error) {
+            console.error(error);
+            return null
+        }
     }
 
     function createEmotion({
