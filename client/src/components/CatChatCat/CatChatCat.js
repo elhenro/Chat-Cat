@@ -41,9 +41,9 @@ function CatChatCat(
         if (!message || !message.fromUser) {
             return
         }
-        const sentiment = await getSentiment(message); 
+        const sentiment = await getSentiment(message.text);
         let detectedEmotion = null;
-        if ( sentiment && sentiment > 0.5) {
+        if ( sentiment && sentiment > 0.1) {
             detectedEmotion = 'happy';
         } else if (sentiment < 0) {
             detectedEmotion = 'angry';
@@ -54,18 +54,18 @@ function CatChatCat(
             createEmotion({
                 previousEmotion: cat.emotion,
                 emotionType: detectedEmotion,
-                // duration: 1000 + Math.floor(Math.random() * 9000),
-                duration: 5000,
+                duration: 1000 + Math.floor(Math.random() * 9000),
+                // duration: 5000,
             });
         }
-        console.log(`[${detectedEmotion}] - {${sentiment}} >>> ${message}`);
+        console.log(`[${detectedEmotion}] - {${sentiment}} >>> ${message.text}`);
 
         // get answer to user input message from dialogGPT api
-        const answer = await getAnswer(message.text);
-        console.log({ answer });
+        // const answer = await getAnswer(message.text);
+        // console.log({ answer });
         // setMessages( prevMessages =>  [...prevMessages, [ ...prevMessages, { text: answer, fromUser: false } ]]);
         // setMessages([...messages, { text: answer, fromUser: false }]);
-        setMessages([...messages, { text: answer, fromUser: false }]);
+        // setMessages([...messages, { text: answer, fromUser: false }]);
 
         console.log({ messages })
     }
@@ -76,11 +76,10 @@ function CatChatCat(
         return answerData?.response;
     }
 
-    const getSentiment = async (message) => {
+    const getSentiment = async (messageText) => {
         try {
-            // const serverUrl = 'http://localhost:3001';
-            const serverUrl = 'http://192.168.178.151:3001';
-            const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, message.text);
+          const serverUrl = process.env.CAT_ONLINE_API_URL || 'https://api.cat-online.net';
+            const { data: sentimentData } = await axios.post(`${serverUrl}/sentiment`, messageText);
             const sentiment = sentimentData?.sentiment;
             return sentiment;
         } catch (error) {
